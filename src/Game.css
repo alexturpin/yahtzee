@@ -1,11 +1,11 @@
 .game {
-	width: 400px;
+	width: 600px;
 	margin: 0 auto;
 }
 
 .die {
-	font-size: 100px;
 	cursor: pointer;
+	margin-right: 10px;
 }
 
 .die.locked {
