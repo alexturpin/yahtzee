@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useInterval from '@use-it/interval';
 import DiceRoller from './DiceRoller';
+import Scoreboard from './Scoreboard';
 import { dieRoll } from './utils';
 
 import './Game.css';
@@ -26,11 +27,11 @@ function Game() {
 		if (!rolling) return;
 
 		setRolling(false);
-		setDice(rollingDice.slice());
+		setDice(Array.from(rollingDice));
 	};
 
 	const toggleLock = idx => {
-		const newLocked = locked.slice();
+		const newLocked = Array.from(locked);
 		newLocked[idx] = !locked[idx];
 		setLocked(newLocked);
 	};
@@ -53,6 +54,7 @@ function Game() {
 				toggleLock={toggleLock}
 				rolling={rolling}
 			/>
+			<Scoreboard dice={dice} />
 		</div>
 	);
 }
