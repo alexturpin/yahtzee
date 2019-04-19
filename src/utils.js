@@ -27,11 +27,11 @@ const isStraight = (dice, length) => {
 	for (let value of Array.from(new Set(dice)).sort()) {
 		if (last === null || value === last + 1) {
 			count++;
-			last = value;
 		} else {
-			count = 0;
-			last = null;
+			count = 1;
 		}
+
+		last = value;
 
 		if (count === length) {
 			return true;
