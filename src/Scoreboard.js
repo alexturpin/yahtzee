@@ -1,62 +1,53 @@
 import React from 'react';
-import { scoring } from './utils';
+import ScoreRow from './ScoreRow';
 
-function Scoreboard({ dice }) {
+const topScores = [
+	['ones', 'Ones'],
+	['twos', 'Twos'],
+	['threes', 'Threes'],
+	['fours', 'Fours'],
+	['fives', 'Fives'],
+	['sixes', 'Sixes']
+];
+
+const bottomScores = [
+	['threeOfAKind', 'Three Of A Kind'],
+	['fourOfAKind', 'Four Of A Kind'],
+	['fullHouse', 'Full House'],
+	['smallStraight', 'Small Straight'],
+	['largeStraight', 'Large Straight'],
+	['yahtzee', 'Yahtzee'],
+	['chance', 'Chance']
+];
+
+function Scoreboard({ dice, scores, canPickScore, pickScore }) {
 	return (
 		<table>
 			<tbody>
-				<tr>
-					<th>Ones</th>
-					<td>{scoring.ones(dice)}</td>
-				</tr>
-				<tr>
-					<th>Twos</th>
-					<td>{scoring.twos(dice)}</td>
-				</tr>
-				<tr>
-					<th>Threes</th>
-					<td>{scoring.threes(dice)}</td>
-				</tr>
-				<tr>
-					<th>Fours</th>
-					<td>{scoring.fours(dice)}</td>
-				</tr>
-				<tr>
-					<th>Fives</th>
-					<td>{scoring.fives(dice)}</td>
-				</tr>
-				<tr>
-					<th>Sixes</th>
-					<td>{scoring.sixes(dice)}</td>
-				</tr>
-				<tr>
-					<th>Three Of A Kind</th>
-					<td>{scoring.threeOfAKind(dice)}</td>
-				</tr>
-				<tr>
-					<th>Four Of A Kind</th>
-					<td>{scoring.fourOfAKind(dice)}</td>
-				</tr>
-				<tr>
-					<th>Full House</th>
-					<td>{scoring.fullHouse(dice)}</td>
-				</tr>
-				<tr>
-					<th>Small Straight</th>
-					<td>{scoring.smallStraight(dice)}</td>
-				</tr>
-				<tr>
-					<th>Large Straight</th>
-					<td>{scoring.largeStraight(dice)}</td>
-				</tr>
-				<tr>
-					<th>Yahtzee</th>
-					<td>{scoring.yahtzee(dice)}</td>
-				</tr>
-				<tr>
-					<th>Chance</th>
-					<td>{scoring.chance(dice)}</td>
-				</tr>
+				{topScores.map(([name, label]) => {
+					return (
+						<ScoreRow
+							name={name}
+							label={label}
+							dice={dice}
+							scores={scores}
+							canPickScore={canPickScore}
+							pickScore={pickScore}
+						/>
+					);
+				})}
+				{bottomScores.map(([name, label]) => {
+					return (
+						<ScoreRow
+							name={name}
+							label={label}
+							dice={dice}
+							scores={scores}
+							canPickScore={canPickScore}
+							pickScore={pickScore}
+						/>
+					);
+				})}
 			</tbody>
 		</table>
 	);

@@ -1,6 +1,7 @@
 .game {
 	width: 600px;
 	margin: 0 auto;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .die {
@@ -10,4 +11,24 @@
 
 .die.locked {
 	border: 5px solid blue;
+}
+
+.score-row td,
+.score-row th {
+	font-size: 25px;
+}
+
+.score-label {
+	text-align: right;
+}
+
+.score-score {
+	color: gray;
+	cursor: pointer;
+	padding-left: 20px;
+}
+
+.score-score:hover,
+.score-score.score-final {
+	color: black;
 }

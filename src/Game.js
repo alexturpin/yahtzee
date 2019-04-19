@@ -11,6 +11,7 @@ function Game() {
 	const [locked, setLocked] = useState([false, false, false, false, false]);
 	const [rolling, setRolling] = useState(false);
 	const [rollingDice, setRollingDice] = useState([1, 1, 1, 1, 1]);
+	const [scores, setScores] = useState({});
 
 	const startRoll = () => {
 		setRolling(true);
@@ -36,6 +37,12 @@ function Game() {
 		setLocked(newLocked);
 	};
 
+	const pickScore = (name, score) => {
+		if (name in scores) return;
+
+		setScores(Object.assign({}, scores, { [name]: score }));
+	};
+
 	useEffect(() => {
 		document.addEventListener('mouseup', endRoll);
 
@@ -54,7 +61,12 @@ function Game() {
 				toggleLock={toggleLock}
 				rolling={rolling}
 			/>
-			<Scoreboard dice={dice} />
+			<Scoreboard
+				dice={dice}
+				scores={scores}
+				pickScore={pickScore}
+				canPickScore={true}
+			/>
 		</div>
 	);
 }
