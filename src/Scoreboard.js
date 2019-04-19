@@ -2,7 +2,15 @@ import React from 'react';
 import ScoreRow from './ScoreRow';
 import { categories } from './utils';
 
-function Scoreboard({ dice, scores, canPickScore, pickScore, bonusProgress }) {
+function Scoreboard({
+	dice,
+	scores,
+	canPickScore,
+	pickScore,
+	bonusProgress,
+	upperTotal,
+	lowerTotal
+}) {
 	const labels = {
 		ones: 'Ones',
 		twos: 'Twos',
@@ -19,7 +27,9 @@ function Scoreboard({ dice, scores, canPickScore, pickScore, bonusProgress }) {
 		chance: 'Chance'
 	};
 
-	const bonusLabel = `Bonus ${'bonus' in scores ? '' : `(${bonusProgress})`}`;
+	const bonusLabel = `Bonus ${
+		'bonus' in scores ? '' : `(${63 - bonusProgress})`
+	}`;
 
 	return (
 		<table>
@@ -45,6 +55,11 @@ function Scoreboard({ dice, scores, canPickScore, pickScore, bonusProgress }) {
 					canPickScore={false}
 				/>
 
+				<tr className="score-row score-total">
+					<th className="score-label">Upper Total</th>
+					<td className="score-score">{upperTotal}</td>
+				</tr>
+
 				{categories.lower.map(category => {
 					return (
 						<ScoreRow
@@ -58,6 +73,16 @@ function Scoreboard({ dice, scores, canPickScore, pickScore, bonusProgress }) {
 						/>
 					);
 				})}
+
+				<tr className="score-row score-total">
+					<th className="score-label">Lower Total</th>
+					<td className="score-score">{lowerTotal}</td>
+				</tr>
+
+				<tr className="score-row score-total">
+					<th className="score-label">Total</th>
+					<td className="score-score">{lowerTotal + upperTotal}</td>
+				</tr>
 			</tbody>
 		</table>
 	);

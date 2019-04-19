@@ -6,10 +6,11 @@
 
 .die {
 	margin-right: 10px;
+	display: inline;
 }
 
 .die.die-locked {
-	border: 5px solid blue;
+	filter: drop-shadow(0 0 3px blue);
 }
 
 .die.die-can-lock {
@@ -19,15 +20,25 @@
 .score-row td,
 .score-row th {
 	font-size: 25px;
+	color: gray;
 }
 
 .score-row.score-can-pick {
 	cursor: pointer;
 }
 
-.score-row.score-can-pick:hover .score-score,
-.score-row.score-final .score-score {
+.score-row.score-can-pick:hover td,
+.score-row.score-can-pick:hover th,
+.score-row.score-final td,
+.score-row.score-final th,
+.score-row.score-total td,
+.score-row.score-total th {
 	color: black;
+}
+
+.score-row.score-total td,
+.score-row.score-total th {
+	padding-bottom: 20px;
 }
 
 .score-label {
@@ -40,5 +51,4 @@
 
 .score-score {
 	padding-left: 20px;
-	color: gray;
 }

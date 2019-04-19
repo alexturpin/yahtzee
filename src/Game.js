@@ -17,8 +17,11 @@ function Game() {
 	const canLock = rollsLeft !== 3 && rollsLeft !== 0;
 	const canPickScore = rollsLeft !== 3;
 
-	const bonusProgress =
-		63 - sum(categories.upper.map(category => scores[category]));
+	const bonusProgress = sum(
+		categories.upper.map(category => scores[category])
+	);
+	const upperTotal = sum([bonusProgress, scores.bonus]);
+	const lowerTotal = sum(categories.lower.map(category => scores[category]));
 
 	const startRoll = () => {
 		if (rollsLeft === 0) return;
@@ -61,13 +64,12 @@ function Game() {
 	const checkForBonus = () => {
 		if ('bonus' in scores) return;
 
-		if (
-			categories.upper.every(category => category in scores) ||
-			bonusProgress <= 0
-		) {
+		const bonus = bonusProgress > 63;
+
+		if (categories.upper.every(category => category in scores) || bonus) {
 			setScores(
 				Object.assign({}, scores, {
-					bonus: bonusProgress <= 0 ? 35 : 0
+					bonus: bonus ? 35 : 0
 				})
 			);
 		}
@@ -100,6 +102,8 @@ function Game() {
 				pickScore={pickScore}
 				canPickScore={canPickScore}
 				bonusProgress={bonusProgress}
+				upperTotal={upperTotal}
+				lowerTotal={lowerTotal}
 			/>
 		</div>
 	);
