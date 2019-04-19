@@ -27,6 +27,7 @@ function Scoreboard({ dice, scores, canPickScore, pickScore }) {
 				{topScores.map(([name, label]) => {
 					return (
 						<ScoreRow
+							key={name}
 							name={name}
 							label={label}
 							dice={dice}
@@ -39,6 +40,7 @@ function Scoreboard({ dice, scores, canPickScore, pickScore }) {
 				{bottomScores.map(([name, label]) => {
 					return (
 						<ScoreRow
+							key={name}
 							name={name}
 							label={label}
 							dice={dice}

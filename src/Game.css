@@ -5,12 +5,15 @@
 }
 
 .die {
-	cursor: pointer;
 	margin-right: 10px;
 }
 
-.die.locked {
+.die.die-locked {
 	border: 5px solid blue;
+}
+
+.die.die-can-lock {
+	cursor: pointer;
 }
 
 .score-row td,
@@ -18,17 +21,24 @@
 	font-size: 25px;
 }
 
+.score-row.score-can-pick {
+	cursor: pointer;
+}
+
+.score-row.score-can-pick:hover .score-score,
+.score-row.score-final .score-score {
+	color: black;
+}
+
 .score-label {
 	text-align: right;
 }
 
-.score-score {
-	color: gray;
-	cursor: pointer;
-	padding-left: 20px;
+.score-row.score-final .score-label {
+	text-decoration: line-through;
 }
 
-.score-score:hover,
-.score-score.score-final {
-	color: black;
+.score-score {
+	padding-left: 20px;
+	color: gray;
 }
