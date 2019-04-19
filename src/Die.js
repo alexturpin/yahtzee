@@ -8,9 +8,8 @@ import die4 from './die/4.png';
 import die5 from './die/5.png';
 import die6 from './die/6.png';
 
-const diceImages = [die1, die2, die3, die4, die5, die6];
-
 function Die({ value, locked, canLock, onClick }) {
+	const diceImages = [die1, die2, die3, die4, die5, die6];
 	const className = classNames('die', {
 		'die-locked': locked,
 		'die-can-lock': canLock

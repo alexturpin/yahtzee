@@ -1,18 +1,18 @@
 const dieRoll = () => Math.floor(Math.random() * 6) + 1;
 
-const sum = (dice, filter = null) => {
+const sum = (numbers, filter = null) => {
 	let total = 0;
-	for (let value of dice) {
+	for (let value of numbers) {
 		if (typeof filter !== 'number' || value === filter) {
-			total += value;
+			total += value || 0; // Fallback to 0 so we can use this to sum scores (which may contained undefined)
 		}
 	}
 	return total;
 };
 
-const count = dice => {
+const count = numbers => {
 	const map = new Map();
-	for (let value of dice) {
+	for (let value of numbers) {
 		map.set(value, (map.get(value) || 0) + 1);
 	}
 	return Array.from(map.values())
@@ -60,4 +60,17 @@ const scoring = {
 	chance: dice => sum(dice)
 };
 
-export { dieRoll, scoring };
+const categories = {
+	upper: ['ones', 'twos', 'threes', 'fours', 'fives', 'sixes'],
+	lower: [
+		'threeOfAKind',
+		'fourOfAKind',
+		'fullHouse',
+		'smallStraight',
+		'largeStraight',
+		'yahtzee',
+		'chance'
+	]
+};
+
+export { dieRoll, sum, scoring, categories };

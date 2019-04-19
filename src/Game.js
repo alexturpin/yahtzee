@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useInterval from '@use-it/interval';
 import DiceRoller from './DiceRoller';
 import Scoreboard from './Scoreboard';
-import { dieRoll } from './utils';
+import { dieRoll, sum, categories } from './utils';
 
 import './Game.css';
 
@@ -16,6 +16,9 @@ function Game() {
 
 	const canLock = rollsLeft !== 3 && rollsLeft !== 0;
 	const canPickScore = rollsLeft !== 3;
+
+	const bonusProgress =
+		63 - sum(categories.upper.map(category => scores[category]));
 
 	const startRoll = () => {
 		if (rollsLeft === 0) return;
@@ -49,10 +52,27 @@ function Game() {
 	const pickScore = (name, score) => {
 		if (name in scores) return;
 
-		setScores(Object.assign({}, scores, { [name]: score }));
 		setRollsLeft(3);
 		setLocked([false, false, false, false, false]);
+
+		setScores(Object.assign({}, scores, { [name]: score }));
 	};
+
+	const checkForBonus = () => {
+		if ('bonus' in scores) return;
+
+		if (
+			categories.upper.every(category => category in scores) ||
+			bonusProgress <= 0
+		) {
+			setScores(
+				Object.assign({}, scores, {
+					bonus: bonusProgress <= 0 ? 35 : 0
+				})
+			);
+		}
+	};
+	checkForBonus();
 
 	useEffect(() => {
 		document.addEventListener('mouseup', endRoll);
@@ -79,6 +99,7 @@ function Game() {
 				scores={scores}
 				pickScore={pickScore}
 				canPickScore={canPickScore}
+				bonusProgress={bonusProgress}
 			/>
 		</div>
 	);

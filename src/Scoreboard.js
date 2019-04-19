@@ -1,35 +1,35 @@
 import React from 'react';
 import ScoreRow from './ScoreRow';
+import { categories } from './utils';
 
-const topScores = [
-	['ones', 'Ones'],
-	['twos', 'Twos'],
-	['threes', 'Threes'],
-	['fours', 'Fours'],
-	['fives', 'Fives'],
-	['sixes', 'Sixes']
-];
+function Scoreboard({ dice, scores, canPickScore, pickScore, bonusProgress }) {
+	const labels = {
+		ones: 'Ones',
+		twos: 'Twos',
+		threes: 'Threes',
+		fours: 'Fours',
+		fives: 'Fives',
+		sixes: 'Sixes',
+		threeOfAKind: 'Three Of A Kind',
+		fourOfAKind: 'Four Of A Kind',
+		fullHouse: 'Full House',
+		smallStraight: 'Small Straight',
+		largeStraight: 'Large Straight',
+		yahtzee: 'Yahtzee',
+		chance: 'Chance'
+	};
 
-const bottomScores = [
-	['threeOfAKind', 'Three Of A Kind'],
-	['fourOfAKind', 'Four Of A Kind'],
-	['fullHouse', 'Full House'],
-	['smallStraight', 'Small Straight'],
-	['largeStraight', 'Large Straight'],
-	['yahtzee', 'Yahtzee'],
-	['chance', 'Chance']
-];
+	const bonusLabel = `Bonus ${'bonus' in scores ? '' : `(${bonusProgress})`}`;
 
-function Scoreboard({ dice, scores, canPickScore, pickScore }) {
 	return (
 		<table>
 			<tbody>
-				{topScores.map(([name, label]) => {
+				{categories.upper.map(category => {
 					return (
 						<ScoreRow
-							key={name}
-							name={name}
-							label={label}
+							key={category}
+							category={category}
+							label={labels[category]}
 							dice={dice}
 							scores={scores}
 							canPickScore={canPickScore}
@@ -37,12 +37,20 @@ function Scoreboard({ dice, scores, canPickScore, pickScore }) {
 						/>
 					);
 				})}
-				{bottomScores.map(([name, label]) => {
+
+				<ScoreRow
+					category={'bonus'}
+					label={bonusLabel}
+					scores={scores}
+					canPickScore={false}
+				/>
+
+				{categories.lower.map(category => {
 					return (
 						<ScoreRow
-							key={name}
-							name={name}
-							label={label}
+							key={category}
+							category={category}
+							label={labels[category]}
 							dice={dice}
 							scores={scores}
 							canPickScore={canPickScore}
